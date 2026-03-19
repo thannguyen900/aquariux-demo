@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Stream;
 
 @Getter
 @Builder
@@ -50,10 +51,10 @@ public class TradeResponse {
                 .netQuoteAmount(trade.getNetQuoteAmount())
                 .source(trade.getPriceSource())
                 .executedAt(trade.getExecutedAt())
-                .wallets(List.of(wallet1, wallet2).stream()
-                        .map(w -> WalletBalanceItemResponse.builder()
-                                .asset(w.getAsset())
-                                .balance(String.valueOf(w.getBalance()))
+                .wallets(Stream.of(wallet1, wallet2)
+                        .map(wallet -> WalletBalanceItemResponse.builder()
+                                .asset(wallet.getAsset())
+                                .balance(String.valueOf(wallet.getBalance()))
                                 .build())
                         .sorted(Comparator.comparing(WalletBalanceItemResponse::getAsset))
                         .toList())

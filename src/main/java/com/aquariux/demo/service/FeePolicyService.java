@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class FeePolicyService {
 
     private final AppProperties appProperties;
+    private final RoundingPolicyService roundingPolicyService;
 
     public BigDecimal feeRate() {
         return appProperties.getFee().getRate();
@@ -21,6 +22,6 @@ public class FeePolicyService {
     }
 
     public BigDecimal calculateFee(BigDecimal grossQuoteAmount) {
-        return grossQuoteAmount.multiply(feeRate());
+        return roundingPolicyService.normalizeFee(grossQuoteAmount.multiply(feeRate()));
     }
 }
