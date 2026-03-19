@@ -31,18 +31,17 @@ mvn spring-boot:run
 ```
 
 ## Api Endpoints and examples
-1. GET http://localhost:8080/api/prices/latest?pair=BTCUSDT
+### 1. Latest price
+GET http://localhost:8080/api/prices/latest?pair=BTCUSDT
+
 ```bash
 curl --location 'http://localhost:8080/api/prices/latest?pair=BTCUSDT'
 ```
 
-2. GET http://localhost:8080/api/wallets/balance
-```bash
-curl --location 'http://localhost:8080/api/wallets/balance'
-```
+### 2. Trade
+POST http://localhost:8080/api/trades
 
-3. POST http://localhost:8080/api/trades
-- BUY BTC
+- Buy BTC
 ```bash
 curl --location 'http://localhost:8080/api/trades' \
 --header 'Idempotency-Key: buy-btc-001' \
@@ -54,7 +53,7 @@ curl --location 'http://localhost:8080/api/trades' \
 }'
 ```
 
-- SELL BTC
+- Sell BTC
 ```bash
 curl --location 'http://localhost:8080/api/trades' \
 --header 'Idempotency-Key: sell-btc-001' \
@@ -66,7 +65,7 @@ curl --location 'http://localhost:8080/api/trades' \
 }'
 ```
 
-- BUY ETH
+- Buy ETH
 ```bash
 curl --location 'http://localhost:8080/api/trades' \
 --header 'Idempotency-Key: buy-eth-001' \
@@ -78,7 +77,7 @@ curl --location 'http://localhost:8080/api/trades' \
 }'
 ```
 
-- SELL ETH
+- Sell ETH
 ```bash
 curl --location 'http://localhost:8080/api/trades' \
 --header 'Idempotency-Key: sell-eth-001' \
@@ -90,7 +89,16 @@ curl --location 'http://localhost:8080/api/trades' \
 }'
 ```
 
-4. GET http://localhost:8080/api/trades/history
+### 3. Wallet balance
+GET http://localhost:8080/api/wallets/balance
+
+```bash
+curl --location 'http://localhost:8080/api/wallets/balance'
+```
+
+### 4. Trade history
+GET http://localhost:8080/api/trades/history
+
 ```bash
 curl --location 'http://localhost:8080/api/trades/history'
 ```
