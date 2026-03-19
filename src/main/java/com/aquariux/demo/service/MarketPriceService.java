@@ -32,4 +32,10 @@ public class MarketPriceService {
 
         return LatestPriceResponse.from(entity);
     }
+
+    public AggregatedPriceEntity getLatestAggregatedPrice(String pair) {
+        TradingPair tradingPair = TradingPair.from(pair);
+        return aggregatedPriceRepository.findTopByPairSymbolOrderByPriceTimeDesc(tradingPair.name())
+                .orElseThrow(() -> new BusinessException("Latest price not available for pair " + tradingPair.name()));
+    }
 }
