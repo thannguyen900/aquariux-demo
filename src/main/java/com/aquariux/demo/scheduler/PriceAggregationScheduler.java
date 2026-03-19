@@ -32,6 +32,10 @@ public class PriceAggregationScheduler {
         aggregatePrices();
     }
 
+    public void priceAggregationProcess() {
+        aggregatePrices();
+    }
+
     private void aggregatePrices() {
         List<ExchangePrice> prices = new ArrayList<>();
         prices.addAll(binanceClient.fetchBookTickers());
