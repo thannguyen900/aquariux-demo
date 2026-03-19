@@ -3,6 +3,7 @@ package com.aquariux.demo.service;
 import com.aquariux.demo.config.AppProperties;
 import com.aquariux.demo.dto.request.TradeRequest;
 import com.aquariux.demo.dto.response.TradeExecutionResult;
+import com.aquariux.demo.dto.response.TradeHistoryItemResponse;
 import com.aquariux.demo.dto.response.TradeResponse;
 import com.aquariux.demo.entity.AggregatedPriceEntity;
 import com.aquariux.demo.entity.TradeEntity;
@@ -18,6 +19,8 @@ import com.aquariux.demo.repository.TradeRepository;
 import com.aquariux.demo.repository.WalletRepository;
 import com.aquariux.demo.repository.WalletTransactionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -83,6 +86,8 @@ public class TradeService {
             throw ex;
         }
     }
+
+
 
     private TradeOrderEntity createOrder(Long userId,
                                          TradingPair pair,
@@ -291,5 +296,12 @@ public class TradeService {
                 .referenceId(tradeId)
                 .createdAt(LocalDateTime.now())
                 .build());
+    }
+
+    public Page<TradeHistoryItemResponse> findByUserIdOrderByExecutedAtDesc(int page, int size) {
+        return tradeRepository.findByUserIdOrderByExecutedAtDesc(
+                        appProperties.getDemoUserId(),
+                        PageRequest.of(page, size))
+                .map(TradeHistoryItemResponse::from);
     }
 }

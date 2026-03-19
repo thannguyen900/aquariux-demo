@@ -12,7 +12,7 @@ import java.util.List;
 @Builder
 public class WalletBalanceResponse {
     private static final String DEFAULT_BALANCE = "0.00000000";
-    private static final int BALANCE_SCALE = 8;
+    private static final int DEFAULT_SCALE = 8;
     private Long userId;
     private List<WalletBalanceItemResponse> balances;
 
@@ -23,7 +23,7 @@ public class WalletBalanceResponse {
                         .map(wallet -> WalletBalanceItemResponse.builder()
                                 .asset(wallet.getAsset())
                                 .balance(wallet.getBalance().compareTo(BigDecimal.ZERO) <= 0 ?
-                                        DEFAULT_BALANCE : String.valueOf(wallet.getBalance().setScale(BALANCE_SCALE, RoundingMode.HALF_UP)))
+                                        DEFAULT_BALANCE : String.valueOf(wallet.getBalance().setScale(DEFAULT_SCALE, RoundingMode.HALF_UP)))
                                 .build())
                         .toList())
                 .build();
